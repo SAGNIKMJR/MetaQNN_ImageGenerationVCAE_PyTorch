@@ -6,7 +6,7 @@ parser = argparse.ArgumentParser(description='PyTorch MetaQNN VCAE')
 parser.add_argument('-train', '--train-data', metavar='TRAINDIR',
                     help='path to (train)dataset')
 parser.add_argument('-val', '--val-data', metavar='TESTDIR',
-                    help='path to test-dataset')
+                    help='path to test-dataset (options: MNIST, CIFAR10, STL10)')
 parser.add_argument('--dataset', default='MNIST',
                     help='name of dataset')
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
