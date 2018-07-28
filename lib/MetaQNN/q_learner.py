@@ -191,7 +191,8 @@ class QLearner:
                 self.count+=1
                 self.replay_dictionary.to_csv(os.path.join(self.save_path,'replayDict' + str(self.count) + '.csv'))
                 self.sample_replay_for_update()
-                self.qstore.save_to_csv(os.path.join(self.save_path,'qVal' + str(self.count) + '.csv'))            
+                self.qstore_enc.save_to_csv(os.path.join(self.save_path,'qValEnc' + str(self.count) + '.csv'))            
+                self.qstore_dec.save_to_csv(os.path.join(self.save_path,'qValDec' + str(self.count) + '.csv'))            
 
             else:
                 reward, train_flag = self.__train_val_net(state_list_enc, state_list_dec, self.state_space_parameters, dataset)
