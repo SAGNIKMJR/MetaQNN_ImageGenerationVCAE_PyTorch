@@ -15,7 +15,7 @@ possible_conv_sizes = [2,4,6,8]              # Choices for conv kernel size (squ
 
 possible_latent_sizes = [2, 8, 16, 32, 64, 128, 256, 512]
 
-allow_initial_pooling = False                   # Allow pooling as the first layer
+# allow_initial_pooling = False                   # Allow pooling as the first layer
 # allow_consecutive_pooling = False               # Allow a pooling layer to follow a pooling layer
 
 # conv_padding = 'SAME'                         # set to 'SAME' to pad convolutions so input and output dimension are the same
