@@ -2,6 +2,7 @@ import time
 import torch
 from lib.Utility.metrics import AverageMeter
 from lib.Utility.metrics import accuracy
+
 def mod_loss(mean_out, std_out, mean, std):
     """ 
         NOTE:
@@ -85,7 +86,6 @@ def train(dataset, model, criterion, epoch, optimizer, lr_scheduler, device, arg
                   'KL Divergence {kl_losses.val:.3f} ({kl_losses.avg:.3f})\t'.format(
                    epoch, i, len(dataset.train_loader), batch_time=batch_time,
                    data_time=data_time, elbo_losses=elbo_losses, rec_losses=rec_losses, kl_losses=kl_losses))
-
 
     lr_scheduler.scheduler_epoch += 1
 

@@ -44,34 +44,35 @@ def validate(dataset, model, criterion, epoch, device, args, save_path_pictures)
     model.eval()
 
     for i, (input, target) in enumerate(dataset.train_loader):
-        input, target = input.to(device), input.to(device)
+        with torch.no_grad():
+            input, target = input.to(device), input.to(device)
 
-        # compute output, mean and std
-        output, mean, std = model(input)
+            # compute output, mean and std
+            output, mean, std = model(input)
 
-        # compute loss 
-        kl_loss = -0.5*torch.mean(1+torch.log(1e-8+std**2)-(mean**2)-(std**2))
-        rec_loss = criterion(output, target)
-        elbo_loss = rec_loss + kl_loss
+            # compute loss 
+            kl_loss = -0.5*torch.mean(1+torch.log(1e-8+std**2)-(mean**2)-(std**2))
+            rec_loss = criterion(output, target)
+            elbo_loss = rec_loss + kl_loss
 
-        # record loss
-        rec_losses.update(rec_loss.item(), input.size(0))
-        kl_losses.update(kl_loss.item(), input.size(0))
-        elbo_losses.update(elbo_loss.item(), input.size(0))
+            # record loss
+            rec_losses.update(rec_loss.item(), input.size(0))
+            kl_losses.update(kl_loss.item(), input.size(0))
+            elbo_losses.update(elbo_loss.item(), input.size(0))
 
-        if i % args.print_freq == 0:
-            save_image((input.data).view(-1,input.size(1),input.size(2),input.size(3)), os.path.join(save_path_pictures, 'input_epoch_' + str(epoch) + '_ite_'+str(i+1)+'.png'))            
-            save_image((output.data).view(-1,output.size(1),output.size(2),output.size(3)), os.path.join(save_path_pictures, 'epoch_' + str(epoch) + '_ite_'+str(i+1)+'.png'))
-            if args.no_gpus>1:
-                sample = torch.randn(input.size(0), model.module.latent_size).to(device)
-                sample = model.module.sample(sample).cpu()
-            else:
-                sample = torch.randn(input.size(0), model.latent_size).to(device)
-                sample = model.sample(sample).cpu()                
-            save_image((sample.view(-1,input.size(1),input.size(2),input.size(3))), os.path.join(save_path_pictures, 'sample_epoch_' + str(epoch) + '_ite_'+str(i+1)+'.png'))
-        del output, input, target
+            if i % args.print_freq == 0:
+                save_image((input.data).view(-1,input.size(1),input.size(2),input.size(3)), os.path.join(save_path_pictures, 'input_epoch_' + str(epoch) + '_ite_'+str(i+1)+'.png'))            
+                save_image((output.data).view(-1,output.size(1),output.size(2),output.size(3)), os.path.join(save_path_pictures, 'epoch_' + str(epoch) + '_ite_'+str(i+1)+'.png'))
+                if args.no_gpus>1:
+                    sample = torch.randn(input.size(0), model.module.latent_size).to(device)
+                    sample = model.module.sample(sample).cpu()
+                else:
+                    sample = torch.randn(input.size(0), model.latent_size).to(device)
+                    sample = model.sample(sample).cpu()                
+                save_image((sample.view(-1,input.size(1),input.size(2),input.size(3))), os.path.join(save_path_pictures, 'sample_epoch_' + str(epoch) + '_ite_'+str(i+1)+'.png'))
+            del output, input, target
 
-    print(' * Train: ELBO Loss {elbo_losses.avg:.3f} Reconstruction Loss {rec_losses.avg:.3f} KL Divergence {kl_losses.avg:.3f}'\
+    print(' * Validate: ELBO Loss {elbo_losses.avg:.3f} Reconstruction Loss {rec_losses.avg:.3f} KL Divergence {kl_losses.avg:.3f}'\
         .format(elbo_losses=elbo_losses, rec_losses=rec_losses, kl_losses=kl_losses))
     print('-' * 80)
     return 1./elbo_losses.avg
