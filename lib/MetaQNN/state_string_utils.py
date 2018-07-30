@@ -44,7 +44,6 @@ class StateStringUtils:
                 new_state_list.append(state)
         return new_state_list
 
-
     def state_list_to_string(self, state_list, num_classes=10):
         '''Convert the list of strings to a string we can train from according to the grammar'''
         out_string = ''

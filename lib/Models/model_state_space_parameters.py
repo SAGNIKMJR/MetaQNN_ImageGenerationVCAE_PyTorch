@@ -5,7 +5,6 @@ possible_conv_depths = [32, 64, 128, 256]       # Choices for number of filters 
     all conv sizes have stride = 2
 """
 possible_conv_sizes = [2,4,6,8]              # Choices for conv kernel size (square)
-possible_spp_sizes = [3,4]
 """
     NOTE: 
     No pool and fc
