@@ -426,8 +426,8 @@ class QLearner:
 
             # TODO: q-learning update (set proper q-learning rate in cmdparser.py)
             # values[actions.index(action_between_states)] = values[actions.index(action_between_states)] + \
-            #                                       self.state_space_parameters.learning_rate * (reward + \
-            #                                       self.state_space_parameters.discount_factor * max_over_next_states\
+            #                                       self.args.learning_rate * (reward + \
+            #                                       self.args.discount_factor * max_over_next_states\
             #                                        - values[actions.index(action_between_states)])
 
             # TODO: modified update for shorter search schedules (doesn't use q-learning rate in computation)
@@ -452,8 +452,8 @@ class QLearner:
 
             # TODO: q-learning update (set proper q-learning rate in cmdparser.py)
             # values[actions.index(action_between_states)] = values[actions.index(action_between_states)] + \
-            #                                       self.state_space_parameters.learning_rate * (reward + \
-            #                                       self.state_space_parameters.discount_factor * max_over_next_states\
+            #                                       self.args.learning_rate * (reward + \
+            #                                       self.args.discount_factor * max_over_next_states\
             #                                        - values[actions.index(action_between_states)])
 
             # TODO: modified update for shorter search schedules (doesn't use q-learning rate in computation)
