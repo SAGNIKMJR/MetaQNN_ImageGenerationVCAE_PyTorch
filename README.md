@@ -92,3 +92,11 @@ $ python main.py --help
       
 Finally, run __main.py__
 
+            
+# Running script to plot rolling mean from replay dictionary   
+Look at __plot/plotReplayDictRollingMean.py__ for the available command line options or just run 
+```sh
+$ python plot/plotReplayDictRollingMean.py --help
+```    
+    
+Finally, run __plot/plotReplayDictRollingMean.py__ with the necessary command line arguments
